@@ -1,0 +1,16 @@
+services:
+  cloudflared:
+    container_name: cloudflared
+    command: tunnel --no-autoupdate run --token ${CF_TOKEN}
+    deploy:
+      replicas: 2
+    env_file:
+      - .env.cloudflared
+    image: cloudflare/cloudflared:latest
+    restart: always
+  sample-service:
+    container_name: httpbin
+    deploy:
+      replicas: 1
+    image: kennethreitz/httpbin
+    restart: always
