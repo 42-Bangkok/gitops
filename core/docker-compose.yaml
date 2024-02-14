@@ -3,6 +3,8 @@ version: '3.8'
 services:
   cloudflared:
     command: tunnel --no-autoupdate run --token ${CF_TOKEN}
+    labels:
+      - "com.centurylinklabs.watchtower.enable=false"
     deploy:
       replicas: 2
     image: cloudflare/cloudflared:latest
@@ -12,3 +14,8 @@ services:
       replicas: 2
     image: ghcr.io/42-bangkok/staffportal:latest
     restart: always
+  watchtower:
+    image: containrrr/watchtower
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    command: --interval 30
