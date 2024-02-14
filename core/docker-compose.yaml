@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  cloudflared:
+    command: tunnel --no-autoupdate run --token ${CF_TOKEN}
+    deploy:
+      replicas: 2
+    image: cloudflare/cloudflared:latest
+    restart: always
+  staffportal:
+    deploy:
+      replicas: 2
+    image: ghcr.io/42-bangkok/staffportal:latest
+    restart: always
