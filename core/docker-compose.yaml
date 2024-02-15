@@ -29,6 +29,12 @@ services:
       replicas: 2
     image: ghcr.io/42-bangkok/staffportal:latest
     restart: always
+    environment:
+      AUTH_42_SCHOOL_CLIENT_ID: ${AUTH_42_SCHOOL_CLIENT_ID}
+      AUTH_42_SCHOOL_CLIENT_SECRET: ${AUTH_42_SCHOOL_CLIENT_SECRET}
+      AUTH_URL: ${AUTH_URL}
+      REDIS_URI: ${REDIS_URI}
+      AUTH_SECRET: ${AUTH_SECRET}
   watchtower:
     image: containrrr/watchtower
     volumes:
