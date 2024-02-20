@@ -35,6 +35,11 @@ services:
       AUTH_URL: ${AUTH_URL}
       REDIS_URI: ${REDIS_URI}
       AUTH_SECRET: ${AUTH_SECRET}
+  gateway:
+    image: ghcr.io/42-bangkok/gateway:latest
+    restart: always
+    env_file:
+      - path: .env.gateway
   watchtower:
     image: containrrr/watchtower
     volumes:
