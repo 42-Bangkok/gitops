@@ -35,6 +35,28 @@ services:
     restart: always
     env_file:
       - path: .env.gateway
+  gateway-scheduler:
+    image: ghcr.io/42-bangkok/gateway:latest
+    restart: always
+    env_file:
+      - path: .env.gateway
+    entrypoint: >
+      sh -c "celery -A app beat -l INFO"
+    depends_on:
+      - redis
+      - postgres
+  gateway-worker:
+    image: ghcr.io/42-bangkok/gateway:latest
+    deploy:
+      replicas: 2
+    restart: always
+    env_file:
+      - path: .env.gateway
+    entrypoint: >
+      sh -c "celery -A app worker -l INFO -E"
+    depends_on:
+      - redis
+      - postgres
   watchtower:
     image: containrrr/watchtower
     volumes:
