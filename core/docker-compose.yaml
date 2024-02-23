@@ -19,9 +19,8 @@ services:
       - "com.centurylinklabs.watchtower.enable=false"
     restart: always
     image: postgres:latest
-    environment:
-      POSTGRES_USER: ${POSTGRES_USER}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    env_file:
+      - path: .env.postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data
   staffportal:
@@ -29,12 +28,8 @@ services:
       replicas: 2
     image: ghcr.io/42-bangkok/staffportal:latest
     restart: always
-    environment:
-      AUTH_42_SCHOOL_CLIENT_ID: ${AUTH_42_SCHOOL_CLIENT_ID}
-      AUTH_42_SCHOOL_CLIENT_SECRET: ${AUTH_42_SCHOOL_CLIENT_SECRET}
-      AUTH_URL: ${AUTH_URL}
-      REDIS_URI: ${REDIS_URI}
-      AUTH_SECRET: ${AUTH_SECRET}
+    env_file:
+      - path: .env.staffportal
   gateway:
     image: ghcr.io/42-bangkok/gateway:latest
     restart: always
