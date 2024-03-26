@@ -35,6 +35,8 @@ services:
     restart: always
     env_file:
       - path: .env.gateway
+    volumes:
+      - ./service_account.json:/app/service_account.json
   gateway-scheduler:
     image: ghcr.io/42-bangkok/gateway:latest
     restart: always
@@ -50,6 +52,8 @@ services:
     deploy:
       replicas: 2
     restart: always
+    volumes:
+      - ./service_account.json:/app/service_account.json
     env_file:
       - path: .env.gateway
     entrypoint: >
