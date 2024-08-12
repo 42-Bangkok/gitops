@@ -25,6 +25,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+  cadet:
+    deploy:
+      replicas: 2
+    image: ghcr.io/42-bangkok/cadet:latest
+    restart: always
+    env_file:
+      - path: .env.cadet
   staffportal:
     deploy:
       replicas: 2
