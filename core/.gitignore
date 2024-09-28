@@ -2,3 +2,5 @@
 .env.gateway
 .env.staffportal
 .env.postgres
+.env.cadet
+service_account.json
